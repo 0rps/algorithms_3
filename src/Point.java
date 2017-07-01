@@ -1,4 +1,4 @@
-import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdDraw;
 
 import java.util.Comparator;
 
@@ -17,13 +17,14 @@ public class Point implements Comparable<Point> {
         }
 
         @Override
-        public int compare(Point point, Point t1) {
+        public int compare(Point pt, Point t1) {
 
-            StdOut.println("------------\nComparator: zero point = " + this.point.toString());
-            StdOut.println("first point = " + point.toString());
-            double s1 = this.point.slopeTo(point);
-            StdOut.println("second point = " + t1.toString());
+            double s1 = this.point.slopeTo(pt);
+            // StdOut.println("second point = " + t1.toString());
             double s2 = this.point.slopeTo(t1);
+
+            long i1 = Math.round(s1 * 10000.0);
+            long i2 = Math.round(s2 * 10000.0);
 
             int result = 1;
 //            if (point.x == t1.x)
@@ -32,14 +33,12 @@ public class Point implements Comparable<Point> {
 //                return -1;
 //            else
 //                return 1;
-            if (s1 == s2)
+            if (i1 == i2)
                 result = 0;
-            else if (s1 < s2)
+            else if (i1 < i2)
                 result = -1;
-            else
-                result = 1;
 
-            StdOut.printf("comparator result = %d\n---------------\n", result);
+            // StdOut.printf("comparator result = %d\n---------------\n", result);
 
             return result;
         }
@@ -54,8 +53,15 @@ public class Point implements Comparable<Point> {
         this.y = y;
     }
 
-    public void draw() { }
-    public void drawTo(Point that) { }
+    public void draw() {
+        /* DO NOT MODIFY */
+        StdDraw.point(x, y);
+    }
+
+    public void drawTo(Point that) {
+        /* DO NOT MODIFY */
+        StdDraw.line(this.x, this.y, that.x, that.y);
+    }
 
     public String toString() { return ("(" + x + ", " + y + ")"); }
 
@@ -81,22 +87,22 @@ public class Point implements Comparable<Point> {
         return slopeTo(that, false);
     }
 
-    public double slopeTo(Point that, boolean isShow)
+    private double slopeTo(Point that, boolean isShow)
     {
         double result;
 
         if (compareTo(that) == 0) {
-            if (isShow) StdOut.println("SlopeTo: is equal, returning -inf");
+            // if (isShow) StdOut.println("SlopeTo: is equal, returning -inf");
             result = Double.NEGATIVE_INFINITY;
         } else if (that.y == y) {
-            if (isShow) StdOut.println("SlopeTo: at one y-axis, returning 0");
+            // if (isShow) StdOut.println("SlopeTo: at one y-axis, returning 0");
             result =  0.0;
         } else if (that.x == x) {
-            if (isShow) StdOut.println("SlopeTo: at one x-axis, +inf");
+            // if (isShow) StdOut.println("SlopeTo: at one x-axis, +inf");
             result = Double.POSITIVE_INFINITY;
         } else {
             result = (double) (that.y - y) / (double) (that.x - x);
-            if (isShow) StdOut.printf("SlopeTo: %f\n", result);
+            // if (isShow) StdOut.printf("SlopeTo: %f\n", result);
         }
 
         return result;
